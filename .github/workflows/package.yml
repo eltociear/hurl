@@ -39,7 +39,7 @@ jobs:
       run: bin/environment.sh
     - name: Build
       run: |
-        sed -i "s/cargo build /cargo build --target=aarch64-apple-darwin /g" bin/release/release.sh
+        sed -i '' 's/cargo build/cargo build --target=aarch64-apple-darwin/g' bin/release/release.sh
         bin/release/release.sh
         echo "PATH=:${PWD}/target/release:$PATH" >> "${GITHUB_ENV}"
     - name: Get version
