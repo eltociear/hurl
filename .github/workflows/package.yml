@@ -40,6 +40,10 @@ jobs:
     - name: Build
       run: |
         sed -i '' 's/cargo build/cargo build --target=aarch64-apple-darwin/g' bin/release/release.sh
+        export PKG_CONFIG_ALLOW_CROSS=1
+        #export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc
+        #export CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc
+        #export CXX_aarch64_unknown_linux_gnu=aarch64-linux-gnu-g++
         bin/release/release.sh
         echo "PATH=:${PWD}/target/release:$PATH" >> "${GITHUB_ENV}"
     - name: Get version
