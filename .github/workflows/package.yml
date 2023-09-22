@@ -34,12 +34,16 @@ jobs:
     - name: Install Rust
       run: |
         bin/install_rust.sh
+        rustup toolchain install aarch64-apple-darwin
+        rustup default aarch64-apple-darwin
         rustup target add aarch64-apple-darwin
     - name: Environment
       run: bin/environment.sh
     - name: Build
       run: |
         sed -i '' 's/cargo build/cargo build --target=aarch64-apple-darwin/g' bin/release/release.sh
+        SDKROOT=$(xcrun -sdk macosx11.1 --show-sdk-path)
+        MACOSX_DEPLOYMENT_TARGET=$(xcrun -sdk macosx11.1 --show-sdk-platform-version)
         export PKG_CONFIG_ALLOW_CROSS=1
         #export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc
         #export CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc
